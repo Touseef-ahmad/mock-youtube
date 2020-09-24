@@ -1,34 +1,46 @@
 import React from 'react';
-import { Header, VideoThumbnail } from '../../components';
+import { Header, VideoThumbnail, ErrorMessage } from '../../components';
+import { StyledWrapper } from './styled';
 import { fetchTopVideos } from '../../api';
-// import { DUMMY_DATA } from '../../api/dummy-data';
 
 class TopVideos extends React.Component {
   state = {
-    results: { items: [] },
+    topVideos: { items: [], error: false },
   };
 
-  async componentDidMount() {
-    const results = await fetchTopVideos();
-    this.setState({ results: results.data });
+  componentDidMount() {
+    this.fetchData();
   }
 
+  fetchData = async () => {
+    const topVideos = await fetchTopVideos();
+    if (topVideos.error) {
+      this.setState({ error: true });
+    } else {
+      this.setState({ topVideos: topVideos.data });
+    }
+  };
+
   render() {
-    const { results } = this.state;
+    const { topVideos, error } = this.state;
+    if (error) {
+      return <ErrorMessage />;
+    }
     return (
       <div>
         <Header />
-        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
-          {results.items.map(({ snippet, id }) => (
+        <StyledWrapper>
+          {topVideos.items.map(({ snippet, id }) => (
             <VideoThumbnail
               flexDirection='column'
               width='20%'
+              key={id.videoId}
               videoId={id.videoId}
               imageUrl={snippet.thumbnails.medium.url}
               title={snippet.title}
             />
           ))}
-        </div>
+        </StyledWrapper>
       </div>
     );
   }

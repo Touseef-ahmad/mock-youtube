@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
+  StyledBrandName,
+  StyledBrandNameSuperscript,
+  StyledButton,
+  StyledForm,
   StyledHeader,
   StyledInput,
-  StyledButton,
-  StyledFrom,
+  StyledLinkWrapper,
   StyledLogoContainer,
-  StyledBrandName,
-  StyledBrandNameSup,
 } from './styled';
 
 class Header extends React.Component {
@@ -24,15 +25,17 @@ class Header extends React.Component {
 
     return (
       <StyledHeader>
-        <Link to='/' style={{ textDecoration: 'none', color: 'black' }}>
-          <StyledLogoContainer>
-            <i className='fa fa-youtube-play fa-4x' />
-            <StyledBrandName>
-              VideoTube <StyledBrandNameSup>PK</StyledBrandNameSup>
-            </StyledBrandName>
-          </StyledLogoContainer>
-        </Link>
-        <StyledFrom>
+        <StyledLinkWrapper>
+          <Link to='/'>
+            <StyledLogoContainer>
+              <i className='fa fa-youtube-play fa-4x' />
+              <StyledBrandName>
+                VideoTube <StyledBrandNameSuperscript>PK</StyledBrandNameSuperscript>
+              </StyledBrandName>
+            </StyledLogoContainer>
+          </Link>
+        </StyledLinkWrapper>
+        <StyledForm>
           <StyledInput
             value={query}
             onChange={this.handleChange}
@@ -44,7 +47,7 @@ class Header extends React.Component {
               <i className='fa fa-search' />
             </StyledButton>
           </Link>
-        </StyledFrom>
+        </StyledForm>
       </StyledHeader>
     );
   }

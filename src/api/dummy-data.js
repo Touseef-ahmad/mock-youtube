@@ -1283,12 +1283,15 @@ export const DUMMY_DATA = {
 };
 
 export const fetchSearchResults = /* query */ () => {
+  // return { error: true };
   return SEARCH_RESULT_DATA;
 };
 export const fetchTopVideos = () => {
+  // return { error: true };
   return DUMMY_DATA;
 };
 
 export const fetchRelatedVideos = async () => {
+  // return { error: true };
   return RELATED_VIDEOS_DATA;
 };

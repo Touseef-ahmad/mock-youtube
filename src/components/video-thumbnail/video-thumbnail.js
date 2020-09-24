@@ -13,7 +13,7 @@ export const VideoThumbnail = ({ title, imageUrl, flexDirection, width, videoId 
   <StyledThumbnailContainer width={width} flexDirection={flexDirection}>
     <StyledImageContainer>
       <StyledImage src={imageUrl} alt='some' />
-      <Link to={`/watch/${videoId}`}>
+      <Link to={`/watch/${videoId}/${title}`}>
         <StyledPlayIconContainer>
           <i className='fa fa-play fa-3x' />
         </StyledPlayIconContainer>

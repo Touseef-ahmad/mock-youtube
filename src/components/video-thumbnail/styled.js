@@ -16,7 +16,7 @@ export const StyledImageContainer = styled.div`
 `;
 export const StyledTitle = styled.p`
   flex: 1;
-  margin: 0 20px 0 20px;
+  margin: 0 20px;
 `;
 export const StyledPlayIconContainer = styled.div`
   align-items: center;
