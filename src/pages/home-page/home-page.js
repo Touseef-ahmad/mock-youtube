@@ -3,16 +3,16 @@ import { Header, VideoThumbnail, ErrorMessage } from '../../components';
 import { StyledWrapper } from './styled';
 import { fetchTopVideos } from '../../api';
 
-class TopVideos extends React.Component {
+class HomePage extends React.Component {
   state = {
     topVideos: { items: [], error: false },
   };
 
   componentDidMount() {
-    this.fetchData();
+    this.getTopVideosList();
   }
 
-  fetchData = async () => {
+  getTopVideosList = async () => {
     const topVideos = await fetchTopVideos();
     if (topVideos.error) {
       this.setState({ error: true });
@@ -46,4 +46,4 @@ class TopVideos extends React.Component {
   }
 }
 
-export { TopVideos };
+export { HomePage };

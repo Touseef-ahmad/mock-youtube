@@ -4,7 +4,7 @@ import { YOUTUBE_API_KEY } from './api-keys';
 
 export const fetchSearchResults = async query => {
   try {
-    return await axios.get(YOUTUBE_SEARCH_API_URL, {
+    const response = axios.get(YOUTUBE_SEARCH_API_URL, {
       params: {
         part: 'snippet',
         q: query,
@@ -12,6 +12,7 @@ export const fetchSearchResults = async query => {
         type: 'video',
       },
     });
+    return response;
   } catch (err) {
     return { error: true };
   }
@@ -19,7 +20,7 @@ export const fetchSearchResults = async query => {
 
 export const fetchTopVideos = async () => {
   try {
-    return await axios.get(YOUTUBE_SEARCH_API_URL, {
+    const response = await axios.get(YOUTUBE_SEARCH_API_URL, {
       params: {
         part: 'snippet',
         key: YOUTUBE_API_KEY,
@@ -28,6 +29,7 @@ export const fetchTopVideos = async () => {
         maxResults: 20,
       },
     });
+    return response;
   } catch (err) {
     return { error: true };
   }
@@ -35,7 +37,7 @@ export const fetchTopVideos = async () => {
 
 export const fetchRelatedVideos = async videoId => {
   try {
-    return await axios.get(YOUTUBE_SEARCH_API_URL, {
+    const response = await axios.get(YOUTUBE_SEARCH_API_URL, {
       params: {
         part: 'snippet',
         key: YOUTUBE_API_KEY,
@@ -43,6 +45,7 @@ export const fetchRelatedVideos = async videoId => {
         relatedToVideoId: videoId,
       },
     });
+    return response;
   } catch (err) {
     return { error: true };
   }

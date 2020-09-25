@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import { Header, VideoThumbnail, ErrorMessage } from '../../components';
-import { StyledWrapper, StyledSuggestionsDiv, StyledIframe, StyledVideoWrapper } from './styled';
+import {
+  StyledWrapper,
+  StyledSuggestionsContainer,
+  StyledIframe,
+  StyledVideoWrapper,
+} from './styled';
 import { fetchRelatedVideos } from '../../api';
 import { YOUTUBE_EMBED_URL } from '../../utils';
 
-class VideoPlayerPage extends Component {
+class VideoDetailPage extends Component {
   state = {
     relatedVideos: { items: [], error: false },
   };
 
   componentDidMount() {
-    this.fetchData();
+    this.getRelatedVideosList();
   }
 
-  fetchData = async () => {
+  getRelatedVideosList = async () => {
     const { videoId } = this.props.match.params;
     const relatedVideos = await fetchRelatedVideos(videoId);
     if (relatedVideos.error) {
@@ -45,7 +50,7 @@ class VideoPlayerPage extends Component {
             </StyledVideoWrapper>
             <h3>{title}</h3>
           </div>
-          <StyledSuggestionsDiv>
+          <StyledSuggestionsContainer>
             {relatedVideos.items.map(({ snippet, id }) => (
               <VideoThumbnail
                 flexDirection='row'
@@ -56,11 +61,11 @@ class VideoPlayerPage extends Component {
                 title={snippet.title}
               />
             ))}
-          </StyledSuggestionsDiv>
+          </StyledSuggestionsContainer>
         </StyledWrapper>
       </div>
     );
   }
 }
 
-export { VideoPlayerPage };
+export { VideoDetailPage };

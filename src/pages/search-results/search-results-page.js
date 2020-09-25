@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Header, VideoThumbnail, ErrorMessage } from '../../components';
-import { StyledResultsDiv } from './styled';
+import { StyledWrapper } from './styled';
 import { fetchSearchResults } from '../../api';
 
 class SearchResultsPage extends Component {
@@ -9,10 +9,10 @@ class SearchResultsPage extends Component {
   };
 
   componentDidMount() {
-    this.fetchResults();
+    this.getSearchResultsList();
   }
 
-  fetchResults = async () => {
+  getSearchResultsList = async () => {
     const { query } = this.props.match.params;
     const results = await fetchSearchResults(query);
     if (results.error) {
@@ -30,7 +30,7 @@ class SearchResultsPage extends Component {
     return (
       <div>
         <Header />
-        <StyledResultsDiv>
+        <StyledWrapper>
           {results.items.map(({ snippet, id }) => (
             <VideoThumbnail
               flexDirection='row'
@@ -41,7 +41,7 @@ class SearchResultsPage extends Component {
               title={snippet.title}
             />
           ))}
-        </StyledResultsDiv>
+        </StyledWrapper>
       </div>
     );
   }

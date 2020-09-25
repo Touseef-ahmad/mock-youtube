@@ -7,7 +7,7 @@ export const StyledWrapper = styled.div`
   padding: 0 60px;
 `;
 
-export const StyledSuggestionsDiv = styled.div`
+export const StyledSuggestionsContainer = styled.div`
   flex-basis: 40%;
   height: 100vh;
   margin: 0 30px;
