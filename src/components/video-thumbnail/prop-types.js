@@ -1,9 +1,9 @@
 import { string } from 'prop-types';
 
 export const propTypes = {
-  title: string.isRequired,
-  imageUrl: string.isRequired,
   flexDirection: string.isRequired,
-  width: string.isRequired,
+  imageUrl: string.isRequired,
+  title: string.isRequired,
   videoId: string.isRequired,
+  width: string.isRequired,
 };
