@@ -1,27 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { Header, VideoThumbnail, ErrorMessage } from '../../components';
+import { propTypes } from './prop-types';
 import { StyledWrapper } from './styled';
 import { fetchSearchResults } from '../../api';
 
-export const SearchResultsPage = props => {
+export const SearchResultsPage = ({ match: { params } }) => {
   const [searchResultsList, setSearchResultsList] = useState([]);
   const [error, setError] = useState(false);
-  const { query } = props.match.params;
+  const { query } = params;
+
+  const getSearchResultsList = async () => {
+    const searchResults = await fetchSearchResults(query);
+    if (searchResults.error) {
+      setError(true);
+    } else {
+      setSearchResultsList(searchResults.data.items);
+    }
+  };
   useEffect(() => {
-    const getSearchResultsList = async () => {
-      const searchResults = await fetchSearchResults(query);
-      if (searchResults.error) {
-        setError(true);
-      } else {
-        setSearchResultsList(searchResults.data.items);
-      }
-    };
     getSearchResultsList();
   }, []);
 
   if (error) {
     return <ErrorMessage />;
   }
+
   return (
     <div>
       <Header />
@@ -40,3 +43,5 @@ export const SearchResultsPage = props => {
     </div>
   );
 };
+
+SearchResultsPage.propTypes = propTypes;

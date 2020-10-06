@@ -8,27 +8,29 @@ import {
 } from './styled';
 import { fetchRelatedVideos } from '../../api';
 import { YOUTUBE_EMBED_URL } from '../../utils';
+import { propTypes } from './prop-types';
 
-export const VideoDetailPage = props => {
+export const VideoDetailPage = ({ match: { params } }) => {
   const [relatedVideosList, setRelatedVideosList] = useState([]);
   const [error, setError] = useState(false);
-  const { videoId, title } = props.match.params;
+  const { videoId, title } = params;
 
+  const getRelatedVideosList = async () => {
+    const relatedVideos = await fetchRelatedVideos(videoId);
+    if (relatedVideos.error) {
+      setError(true);
+    } else {
+      setRelatedVideosList(relatedVideos.data.items);
+    }
+  };
   useEffect(() => {
-    const getRelatedVideosList = async () => {
-      const relatedVideos = await fetchRelatedVideos(videoId);
-      if (relatedVideos.error) {
-        setError(true);
-      } else {
-        setRelatedVideosList(relatedVideos.data.items);
-      }
-    };
     getRelatedVideosList();
   }, []);
 
   if (error) {
     return <ErrorMessage />;
   }
+
   return (
     <div>
       <Header />
@@ -61,3 +63,5 @@ export const VideoDetailPage = props => {
     </div>
   );
 };
+
+VideoDetailPage.propTypes = propTypes;

@@ -1,35 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { Header, VideoThumbnail, ErrorMessage } from '../../components';
+import { propTypes } from './prop-types';
 import { StyledWrapper } from './styled';
 import { fetchTopVideos } from '../../api';
 
 export const HomePage = () => {
   const [topVideosList, setTopVideosList] = useState([]);
   const [error, setError] = useState(false);
+
+  const getTopVideosList = async () => {
+    const topVideos = await fetchTopVideos();
+    if (topVideos.error) {
+      setError(true);
+    } else {
+      setTopVideosList(topVideos.data.items);
+    }
+  };
   useEffect(() => {
-    const getTopVideosList = async () => {
-      const topVideos = await fetchTopVideos();
-      if (topVideos.error) {
-        setError(true);
-      } else {
-        setTopVideosList(topVideos.data.items);
-      }
-    };
     getTopVideosList();
   }, []);
 
   if (error) {
     return <ErrorMessage />;
   }
+
   return (
     <div>
       <Header />
       <StyledWrapper>
-        {topVideosList.map(({ snippet, id }) => (
+        {topVideosList.map(({ snippet, etag, id }) => (
           <VideoThumbnail
+            key={etag}
             flexDirection='column'
             width='20%'
-            key={id.videoId}
             videoId={id.videoId}
             imageUrl={snippet.thumbnails.medium.url}
             title={snippet.title}
@@ -39,3 +42,5 @@ export const HomePage = () => {
     </div>
   );
 };
+
+HomePage.propTypes = propTypes;

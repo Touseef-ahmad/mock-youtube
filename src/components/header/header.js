@@ -16,6 +16,7 @@ export const Header = () => {
   const handleInputChange = event => {
     setQuery(event.target.value);
   };
+
   return (
     <StyledHeader>
       <StyledLinkWrapper>

@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 // components
 import { HomePage } from '../pages/home-page';
 import { VideoDetailPage } from '../pages/video-detail-page';
-import { SearchResultsPage } from '../pages/search-results';
+import { SearchResultsPage } from '../pages/search-results-page';
 // constants
 import { ROUTE_NAMES } from './route-names';
 

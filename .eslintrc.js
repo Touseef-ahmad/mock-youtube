@@ -5,7 +5,7 @@ module.exports = {
     node: true,
   },
   extends: ['airbnb'],
-  plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier'],
+  plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier' , 'react-hooks'],
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 6,
