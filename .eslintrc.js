@@ -47,7 +47,7 @@ module.exports = {
     'react/no-did-mount-set-state': 'off',
     'react/no-unused-prop-types': 'off', // Is still buggy
     'react/jsx-one-expression-per-line': 'off',
-
+    'react-hooks/exhaustive-deps': 0,
     'jsx-quotes': 'off',
     'jsx-a11y/anchor-is-valid': ['error', { components: ['Link'], specialLink: ['to'] }],
     'jsx-a11y/label-has-for': [
