@@ -9,11 +9,11 @@ export const HomePage = () => {
   const [error, setError] = useState(false);
 
   const getTopVideosList = async () => {
-    const topVideos = await fetchTopVideos();
-    if (topVideos.error) {
+    const response = await fetchTopVideos();
+    if (response.error) {
       setError(true);
     } else {
-      setTopVideosList(topVideos.data.items);
+      setTopVideosList(response.data.items);
     }
   };
   useEffect(() => {

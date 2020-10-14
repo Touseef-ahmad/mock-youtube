@@ -16,11 +16,11 @@ export const VideoDetailPage = ({ match: { params } }) => {
   const { videoId, title } = params;
 
   const getRelatedVideosList = async () => {
-    const relatedVideos = await fetchRelatedVideos(videoId);
-    if (relatedVideos.error) {
+    const response = await fetchRelatedVideos(videoId);
+    if (response.error) {
       setError(true);
     } else {
-      setRelatedVideosList(relatedVideos.data.items);
+      setRelatedVideosList(response.data.items);
     }
   };
   useEffect(() => {

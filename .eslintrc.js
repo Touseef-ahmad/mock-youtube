@@ -35,7 +35,7 @@ module.exports = {
     'react/require-default-props': 'off', // airbnb use error
     'react/forbid-prop-types': 'off', // airbnb use error
     'react/jsx-filename-extension': ['error', { extensions: ['.js'] }], // airbnb is using .jsx
-
+    'react-hooks/exhaustive-deps': 0,
     'prefer-destructuring': 'off',
 
     quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }],

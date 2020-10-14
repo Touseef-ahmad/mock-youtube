@@ -10,11 +10,11 @@ export const SearchResultsPage = ({ match: { params } }) => {
   const { query } = params;
 
   const getSearchResultsList = async () => {
-    const searchResults = await fetchSearchResults(query);
-    if (searchResults.error) {
+    const response = await fetchSearchResults(query);
+    if (response.error) {
       setError(true);
     } else {
-      setSearchResultsList(searchResults.data.items);
+      setSearchResultsList(response.data.items);
     }
   };
   useEffect(() => {
