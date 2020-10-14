@@ -3,10 +3,11 @@
     "editor.rulers": [
       100
     ],
-    "editor.showFoldingControls": "always",
+    "editor.codeActionsOnSave": { 
+      "source.fixAll.eslint": true, 
+    },
     "editor.folding": true,
     "editor.foldingStrategy": "indentation",
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true,
-    },
+    "editor.fontFamily": "DejaVu Sans Mono for Powerline, Menlo, Monaco, 'Courier New', monospace",
+    "editor.showFoldingControls": "always",
   }

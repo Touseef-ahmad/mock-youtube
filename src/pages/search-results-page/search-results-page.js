@@ -2,22 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { Header, VideoThumbnail, ErrorMessage } from '../../components';
 import { propTypes } from './prop-types';
 import { StyledWrapper } from './styled';
-import { fetchTopVideos } from '../../api';
+import { fetchSearchResults } from '../../api';
 
-export const HomePage = () => {
-  const [topVideosList, setTopVideosList] = useState([]);
+export const SearchResultsPage = ({ match: { params } }) => {
+  const [searchResultsList, setSearchResultsList] = useState([]);
   const [error, setError] = useState(false);
+  const { query } = params;
 
-  const getTopVideosList = async () => {
-    const response = await fetchTopVideos();
+  const getSearchResultsList = async () => {
+    const response = await fetchSearchResults(query);
     if (response.error) {
       setError(true);
     } else {
-      setTopVideosList(response.data.items);
+      setSearchResultsList(response.data.items);
     }
   };
   useEffect(() => {
-    getTopVideosList();
+    getSearchResultsList();
   }, []);
 
   if (error) {
@@ -28,11 +29,11 @@ export const HomePage = () => {
     <div>
       <Header />
       <StyledWrapper>
-        {topVideosList.map(({ snippet, etag, id }) => (
+        {searchResultsList.map(({ snippet, id }) => (
           <VideoThumbnail
-            key={etag}
-            flexDirection='column'
-            width='20%'
+            flexDirection='row'
+            width='80%'
+            key={id.videoId}
             videoId={id.videoId}
             imageUrl={snippet.thumbnails.medium.url}
             title={snippet.title}
@@ -43,4 +44,4 @@ export const HomePage = () => {
   );
 };
 
-HomePage.propTypes = propTypes;
+SearchResultsPage.propTypes = propTypes;

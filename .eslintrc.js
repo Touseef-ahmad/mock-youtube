@@ -5,7 +5,7 @@ module.exports = {
     node: true,
   },
   extends: ['airbnb'],
-  plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier'],
+  plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier' , 'react-hooks'],
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 6,
@@ -35,7 +35,7 @@ module.exports = {
     'react/require-default-props': 'off', // airbnb use error
     'react/forbid-prop-types': 'off', // airbnb use error
     'react/jsx-filename-extension': ['error', { extensions: ['.js'] }], // airbnb is using .jsx
-
+    'react-hooks/exhaustive-deps': 0,
     'prefer-destructuring': 'off',
 
     quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
@@ -47,7 +47,7 @@ module.exports = {
     'react/no-did-mount-set-state': 'off',
     'react/no-unused-prop-types': 'off', // Is still buggy
     'react/jsx-one-expression-per-line': 'off',
-
+    'react-hooks/exhaustive-deps': 0,
     'jsx-quotes': 'off',
     'jsx-a11y/anchor-is-valid': ['error', { components: ['Link'], specialLink: ['to'] }],
     'jsx-a11y/label-has-for': [

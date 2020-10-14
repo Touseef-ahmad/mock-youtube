@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header, VideoThumbnail, ErrorMessage } from '../../components';
 import {
   StyledWrapper,
@@ -8,64 +8,60 @@ import {
 } from './styled';
 import { fetchRelatedVideos } from '../../api';
 import { YOUTUBE_EMBED_URL } from '../../utils';
+import { propTypes } from './prop-types';
 
-class VideoDetailPage extends Component {
-  state = {
-    relatedVideos: { items: [], error: false },
-  };
+export const VideoDetailPage = ({ match: { params } }) => {
+  const [relatedVideosList, setRelatedVideosList] = useState([]);
+  const [error, setError] = useState(false);
+  const { videoId, title } = params;
 
-  componentDidMount() {
-    this.getRelatedVideosList();
-  }
-
-  getRelatedVideosList = async () => {
-    const { videoId } = this.props.match.params;
-    const relatedVideos = await fetchRelatedVideos(videoId);
-    if (relatedVideos.error) {
-      this.setState({ error: true });
+  const getRelatedVideosList = async () => {
+    const response = await fetchRelatedVideos(videoId);
+    if (response.error) {
+      setError(true);
     } else {
-      this.setState({ relatedVideos: await relatedVideos.data });
+      setRelatedVideosList(response.data.items);
     }
   };
+  useEffect(() => {
+    getRelatedVideosList();
+  }, []);
 
-  render() {
-    const { videoId, title } = this.props.match.params;
-    const { relatedVideos, error } = this.state;
-    if (error) {
-      return <ErrorMessage />;
-    }
-    return (
-      <div>
-        <Header />
-        <StyledWrapper>
-          <div>
-            <StyledVideoWrapper>
-              <StyledIframe
-                title='videPlayer'
-                src={`${YOUTUBE_EMBED_URL}/${videoId}`}
-                frameBorder='0'
-                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                allowFullScreen
-              />
-            </StyledVideoWrapper>
-            <h3>{title}</h3>
-          </div>
-          <StyledSuggestionsContainer>
-            {relatedVideos.items.map(({ snippet, id }) => (
-              <VideoThumbnail
-                flexDirection='row'
-                width='100%'
-                key={id.videoId}
-                videoId={id.videoId}
-                imageUrl={snippet.thumbnails.medium.url}
-                title={snippet.title}
-              />
-            ))}
-          </StyledSuggestionsContainer>
-        </StyledWrapper>
-      </div>
-    );
+  if (error) {
+    return <ErrorMessage />;
   }
-}
 
-export { VideoDetailPage };
+  return (
+    <div>
+      <Header />
+      <StyledWrapper>
+        <div>
+          <StyledVideoWrapper>
+            <StyledIframe
+              title='videPlayer'
+              src={`${YOUTUBE_EMBED_URL}/${videoId}`}
+              frameBorder='0'
+              allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+              allowFullScreen
+            />
+          </StyledVideoWrapper>
+          <h3>{title}</h3>
+        </div>
+        <StyledSuggestionsContainer>
+          {relatedVideosList.map(({ snippet, id }) => (
+            <VideoThumbnail
+              flexDirection='row'
+              width='100%'
+              key={id.videoId}
+              videoId={id.videoId}
+              imageUrl={snippet.thumbnails.medium.url}
+              title={snippet.title}
+            />
+          ))}
+        </StyledSuggestionsContainer>
+      </StyledWrapper>
+    </div>
+  );
+};
+
+VideoDetailPage.propTypes = propTypes;
